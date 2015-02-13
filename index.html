@@ -1,0 +1,1316 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Tutorial L.in.oleum</title>
+
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" />
+		<style type="text/css"> @media screen {
+			body {
+				padding-top: 60px;
+			}
+
+			a[name^=m_] {
+				display: block;
+				visibility: hidden;
+				display: inline-block;
+				height: 20px;
+				position: relative;
+				top: -20px;
+			}
+
+			.pad-slightly {
+				padding: 8px 10px;
+			}
+
+			p > img {
+				display: block;
+				margin: 10px auto;
+			}
+
+			p.license {
+				text-align: center;
+				max-width: 320px;
+				margin: 2em auto 1em;
+			}
+		}</style>
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css" media="screen" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</head>
+
+	<body data-spy="scroll" data-target="#navigation" data-offset="200">
+
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner" id="navigation">
+				<a href="#" class="brand" tabindex="-1">L.in.oleum</a>
+				<ul class="nav">
+					<li class="dropdown">
+						<a href="#m_intro" class="dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-target="#">
+							Wstęp <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#m_whats" tabindex="-1">Czym jest L.in.oleum?</a></li>
+							<li><a href="#m_why" tabindex="-1">Po co się go uczyć?</a></li>
+							<li><a href="#m_reqs" tabindex="-1">Co powinieneś już umieć?</a></li>
+							<li><a href="#m_forc" tabindex="-1">Dla znających C++</a></li>
+							<li><a href="#m_forasm" tabindex="-1">Dla znających asemblera</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#m_basics" class="dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-target="#">
+							Podstawy <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#m_preparation" tabindex="-1">Przygotowanie środowiska</a></li>
+							<li><a href="#m_hello" tabindex="-1">Hello, world!</a></li>
+							<li><a href="#m_quine" tabindex="-1">Program Quine</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#m_appendices" class="dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-target="#">
+							Dodatki <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#m_syntax" tabindex="-1">Składnia</a></li>
+							<li><a href="#m_brackets" tabindex="-1">Reguła nawiasów kwadratowych</a></li>
+							<li><a href="#m_junctions" tabindex="-1">Spojenia</a></li>
+							<li><a href="#m_spawn" tabindex="-1">Dyspozycje</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="row">
+
+				<div class="span10 offset1">
+
+					<p class="pull-right pad-slightly">Autor: <a href="http://avensome.net">Krzysztof Śmiałek</a>. Ten poradnik stanowi element projektu zaliczeniowego z przedmiotu <em>Asemblery</em>. <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencja Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a></p>
+
+					<div class="hero-unit">
+						<h1>L.in.oleum</h1>
+						<p>Połącz wydajność asemblera z prostotą języków wysokopoziomowych.</p>
+					</div>
+
+
+				</div>
+
+				<div class="span8 offset2">
+
+					<a name="m_intro" id="m_intro"></a>
+					<div class="page-header">
+						<h1>Wstęp</h1>
+					</div>
+
+					<a id="m_whats" name="m_whats"></a>
+					<h2>Czym jest L.in.oleum?</h2>
+					<p>L.in.oleum - lub w skrócie <strong>Lino</strong> - jest przenośnym asemblerem stworzonym z zamysłem pisania aplikacji ogólnego użytku w sytuacjach, gdzie potrzebna jest pełna przenośność i wysoka wydajność.</p>
+					<p>Sam autor opisuje go jako &quot;niestrukturalny, nietypowany, proceduralny język programowania&quot;.</p>
+					<p>Język został stworzony na własne potrzeby autora. Chciał on, by piąta część jego gry Noctis powstała w języku niskopoziomowym, ale równocześnie wolał uniknąć użycia klasycznego asemblera ze względu na stosunkowo duży nakład pracy w stosunku do uzyskiwanych rezultatów.</p>
+					<p>Obecnie Lino jest językiem samowystarczalnym: kompilator (początkowo stworzony w C++) został przepisany w Lino i stanowi część biblioteki standardowej języka. Oznacza to, że możliwe jest wbudowywanie kompilatora we własne programy.</p>
+					<p>Większość elementów języka stanowi wolne oprogramowanie i jest dostępna na licencji GNU LGPL. Wyjątkiem jest kompilator, w którego licencji uchylono możliwość użytku komercyjnego.</p>
+					<p>Pakiet umożliwiający rozpoczęcie programowania w L.in.oleum można pobrać ze <a href="http://anynowhere.com" target="_blank">strony autora</a>. W momencie pisania tego poradnika najnowsza dostępna wersja Lino to 2.00 i to właśnie jej będzie dotyczył poradnik.</p>
+
+					<a id="m_why" name="m_why"></a>
+					<h2>Czemu powinieneś nauczyć się programować w Lino?</h2>
+					<p>Nie będę Cię oszukiwał - L.in.oleum nie jest językiem, w którym tworzy się wielkie, zmieniające oblicze świata programy, lub który zapewni Ci dobrze płatną pracę w przyszłości. Jednak nauczenie się go nie będzie stratą czasu.</p>
+					<p>Lino jest językiem nietuzinkowym, z wieloma ciekawymi rozwiązaniami, które poszerzą Twoje horyzonty oraz być może zmienią sposób, w jaki patrzysz na niektóre aspekty programowania. Ucząc się go poznasz kilka faktów na temat budowy i zasady działania procesora w Twoim komputerze. Będziesz miał okazję dowiedzieć się, jak działają kompilatory i jakie są różnice w budowie języka przenośnego i nieprzenośnego.</p>
+					<p>Równocześnie nauczysz się języka, który jest niezwykle czytelny, choć nie przypomina żadnego języka, który już znasz.</p>
+					<p>Jeszcze nie jesteś przekonany? W takim razie informuję Cię, że jeśli teraz zrezygnujesz, to ominie Cię znajomość języka programowania, w którym nazwy zmiennych i procedur mogą zawierać spacje, a argumenty operatora można umieszczać przed nim, za nim, a także <em>w jego wnętrzu...</em></p>
+
+					<a id="m_reqs" name="m_reqs"></a>
+					<h2>Co powinieneś już umieć?</h2>
+					<p>Poradnik jest pisany z myślą o osobach, które znają już jakiś język programowania - najlepiej C lub C++, ewentualnie asemblera x86. Kolejne rozdziały będą stanowić wprowadzenie do L.in.oleum dla osób, które czują się swobodnie posługując się składnią przynajmniej jednego z tych języków.</p>
+					<p>L.in.oleum zostało zaprojektowane jako język łatwiejszy do nauki niż asembler, jednak ten poradnik nie jest sierowany do osób, które nie miały jeszcze do czynienia z programowaniem - zamiast wyjaśniać podstawowe koncepty, ma on raczej na celu wprowadzenie do języka poprzez tworzenie skojarzeń z podobnymi rozwiązaniami w innych językach.</p>
+					<p>Przedstawione poniżej przykładowe programy nie będą na ogół szczegółowo wyjaśniane. Zwrócę jedynie uwagę na rozwiązania charakterystyczne dla tego języka.</p>
+
+					<a id="m_forc" name="m_forc"></a>
+					<h2>Dla znających C++</h2>
+					<p>... lub inny język wysokiego poziomu.</p>
+					<p>Cieszę się, że udało mi się zachęcić Cię do podjęcia nauki L.in.oleum - i gwarantuję, że poświęcony na to czas nie będzie czasem zmarnowanym. Najpierw jednak muszę upewnić się, że jesteś świadomy pewnych reguł, którymi rządzi się programowanie niskopoziomowe.</p>
+					<p>Musisz zdawać sobie sprawę z faktu, że pisząc wysokopoziomowo tak naprawdę nie piszesz instrukcji bezpośrednio dla procesora. Po przetworzeniu przez kompilator, Twój kod może wcale nie przypominać tego, co początkowo napisałeś. Wynika to z faktu, że procesor nie byłby w stanie przetworzyć aż tak skomplikowanych operacji.</p>
+					<p>Chcąc wykonać w języku wysokopoziomowym przypisanie do zmiennej wartości obliczonej na podstawie innych zmiennych, możesz po prostu napisać odpowiednie wyrażenie arytmetyczne. Jednak procesor nie funkcjonuje w ten sposób. Kompilator musi rozbić Twoje wyrażenie na pojedyncze działania (z zachowaniem odpowiedniej kolejności ich wykonywania) i przetworzyć je jedno po drugim.</p>
+					<p>Takie operacje prawie zawsze zwracają wynik w to samo miejsce, w którym wcześniej znajdował się jeden z operandów. Oznacza to, że jeśli dodasz dwie liczby, to wynik otrzymasz tam, gdzie wcześniej znajdowała się jedna z nich. Nie jest to jednak wielkie utrudnienie - wymaga ono jedynie bezbolesnej zmiany sposobu myślenia o działaniu Twoich programów.</p>
+					<p>Kolejnym faktem, o którym musisz wiedzieć, jest to, że procesor zazwyczaj nie wykonuje operacji bezpośrednio na pamięci. Większość operacji jest przeprowadzana na <em>rejestrach</em> - wbudowanych w procesor fragmentach pamięci, z których każdy ma wielkość słowa maszynowego. Na chwilę obecną Lino pozwala jedynie na pracę z procesorami 32-bitowymi i kompatybilnymi, więc każdy z rejestrów będzie miał wielkość 4 bajtów.</p>
+					<p>Rejestrów należy używać rozsądnie. Przeprowadzane na nich operacje są znacznie szybsze, niż te wykonywane na pamięci. Jeśli będziesz kilkukrotnie wykorzystywał jakąś daną, to lepiej najpierw skopiować ją z pamięci do rejestru procesora - szczególnie, jeśli całą operację zamierzasz wykonać kilkunasto- lub kilkudziesięciokrotnie (np. przetwarzanie pojedynczych pikseli na ekranie). Złym pomysłem jest jednak przeniesienie danych do rejestru w celu wykonania jednorazowej operacji - w ten sposób zmarnujesz kilka cykli procesora.</p>
+					<p>L.in.oleum jest językiem nietypowanym. Każda dana, którą będziesz w nim przetwarzał, będzie 4-bajtową liczbą. W zależności od rodzaju danych, z którymi się zetkniesz, liczby te mogą być różnie interpretowane. Mogą to być liczby ze znakiem lub bez, znaki ASCII, grupy tych znaków, liczby zmiennoprzecinkowe lub dowolne inne informacje - tylko od Ciebie zależy, co z nimi zrobisz. Najistotniejsze jest jednak to, że Lino <em>nie ostrzeże Cię</em>, jeśli będziesz próbował zrobić coś głupiego. Próba wypisania liczby nie wypisze tekstu, lecz bezsensowne znaki - wypisywać da się tylko tekst, więc musisz najpierw zamienić liczbę na napis (nie musisz robić tego sam, umożliwia to odpowiednia funkcja biblioteczna).</p>
+					<p>Nietypowanie języka może być przekleństwem lub błogosławieństwem. Część operacji jest po prostu mniej złożona i szybsza. Z drugiej strony, konieczne jest zachowanie szczególnej ostrożności.</p>
+					<p>Zwróć na przykład uwagę, że dodanie do siebie liczb całkowitej i zmiennoprzecinkowej doprowadzi do małej katastrofy, o której dowiesz się w najmniej spodziewanym momencie. Nie zostanie zgłoszony żaden błąd, po prostu otrzymasz wynik nie niosący żadnej sensownej informacji, niezależnie od tego, jak go zinterpretujesz. Przed wykonaniem na nich operacji, liczby należy skonwertować do wspólnego typu.</p>
+					<p>W Lino możesz korzystać z pięciu rejestrów, oznaczonych literami <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code> oraz <code>E</code>. <em>Nie musisz</em> z nich korzystać, ale czasem ich użycie może odczuwalnie poprawić wydajność. Istnieją też trzy rejestry do zastosowań specjalnych, z których dwa są wykorzystywane tylko przez kompilator, a pozostały jeden jest używany niezwykle rzadko i na razie możesz o nim zapomnieć.</p>
+					<p>Ostatnia sprawa, o której musisz wiedzieć, to istnienie <em>stosu</em>. Jest on obsługiwany bezpośrednio przez procesor, a zarządzaniem jego wielkością zajmuje się moduł uruchomieniowy Lino (o którym piszę więcej w dalszej części poradnika).</p>
+					<p>Stos systemowy działa dokładnie tak, jak każdy inny stos (czy też kolejka <abbr title="Last In First Out" class="initialism">LIFO</abbr>). Można odkładać na niego dowolne 4-bajtowe dane, a także zdejmować je w odwrotnej kolejności. O zastosowaniach stosu dowiesz się jeszcze czytając dalej ten poradnik.</p>
+
+					<a id="m_forasm" name="m_forasm"></a>
+					<h2>Dla znających asemblera</h2>
+					<p>... a w szczególności asemblera x86.</p>
+					<p>Ta umiejętność niewątpliwie ułatwi Ci naukę L.in.oleum, ponieważ nie będziesz musiał tak bardzo zmieniać swojego sposobu myślenia o programowaniu. Aby rozpoczęcie przygody z Lino było łatwiejsze, postaram się przedstawić poniżej najważniesze różnice w stylu programowania.</p>
+					<p>Programy w L.in.oleum zawsze są pisane pod konkretną, abstrakcyjną architekturę. Kompilator ma za zadanie zmapowanie jej do danej architektury sprzętu przy pomocy <em>modułu uruchomieniowego</em>, ściśle mówiąc pakietu <em>cpu</em>. Na przykład w przypadku modułu i386 rejestry <code>A</code>, <code>B</code> i <code>C</code> zostaną zmapowane odpowiednio na <code>EAX</code>, <code>EBX</code> oraz <code>ECX</code>, pozostałe dwa rejestry <code>D</code> i <code>E</code> zostaną zasymulowane w pamięci. Inne procesory otrzymają inne mapowania, więc wybierając rejestr dodanej operacji nie należy sugerować się ich zastosowaniami w konkretnej architekturze.</p>
+					<p>Lino korzysta z modelu pamięci, który autor określa jako <em>n-płaski</em>. Jest to modyfikacja modelu płaskiego, w której pojedyncze komórki pamięci nie są bajtami, lecz słowami maszynowymi. Obecnie kompilator wspiera tylko procesory 32-bitowe, więc adresowane są 4-bajtowe słowa maszynowe (a nie bajty, jak w asemblerze).</p>
+					<p>Zarówno wspomniana pamięć, jak też stos są również zarządzane przez moduł uruchomieniowy. Stos rośnie w miarę potrzeb aż do wielkości 64 MB. Wskaźnik stosu znajduje się w rejestrze <code>$</code>, na którym można wykonywać tylko operacje inkrementacji i dekrementacji. Niezależnie od architektury fizycznego sprzętu, z perspektywy programu stos zawsze rośnie &quot;w dół&quot;.</p>
+					<p>Jako przenośny asembler, Lino musi rozwiązywać problem niejednolitości przerwań. Zajmuje się tym także moduł uruchomieniowy, a dokładnie pakiet <em>sys</em>. Zawiera on tzw. <em>isokernel</em>, który stanowi warstwę pośredniczącą między programem a systemem. Jest to mechanizm bardzo zbliżony do przerwań, jednak znacznie bardziej opisowy i czytelny. Jego użycie przedstawię w dalszej części poradnika.</p>
+					<p>Kod Lino zamiast mnemoników używa zapisu symbolicznego, jest też bardziej elastyczny. Konstrukcja języka zachęca do tworzenia &quot;samodokumentującego się kodu&quot;, tzn. zmiennych i procedur o takich nazwach, które będą opisywać jego działanie bez konieczności szerszego wyjaśniania.</p>
+					<p>W porównaniu z asemblerem, wprowadzono szereg ułatwień dla programisty. Istnieje możliwość importu bibliotek, które operują we własnych przestrzeniach nazw i mogą zawierać własne procedury inicjujące. Wraz z kompilatorem dostarczana jest biblioteka standardowa, udostępniająca m. in. procedury operujące na ciągach znaków, obsługujące pliki binarne i tekstowe oraz menedżer sterty.</p>
+					<p>Możliwe jest programowanie procedur w stylu instrukcji <code>call</code> asemblera, jednak Lino wprowadza udogodnienia w postaci możliwości przekazania procedurze argumentu, a także zwrócenia z niej wartości albo informacji o sukcesie lub niepowodzeniu. Jeśli zachodzi potrzeba przekazania więcej niż jednego argumentu, to dzieje się to przez ustawienie odpowiednich rejestrów lub zmiennych. Język wspiera &quot;zbędne&quot; elementy składniowe, które mają poprawić czytelność fragmentów przygotowujących argumenty dla procedury.</p>
+
+					<a name="m_basics" id="m_basics"></a>
+					<div class="page-header">
+						<h1>Podstawy</h1>
+					</div>
+
+					<a id="m_preparation" name="m_preparation"></a>
+					<h2>Przygotowanie środowiska</h2>
+					<blockquote>
+						<p>Odpoczywaj w łóżku przez kilka dni. Gdy się obudzisz, zrób sobie <strong>DUŻĄ</strong> kawę.</p>
+						<small>Ponche, użytkownik forum <a href="http://anynowhere.com/">HSP</a> o nauce Linoleum.</small>
+					</blockquote>
+					<p>Jeśli jeszcze tego nie zrobiłeś, to powinieneś teraz <a href="http://anynowhere.com/zips/linoleum200.zip">pobrać L.in.oleum</a> i rozpakować archiwum. Zadbaj o ustawienie odpowiednich uprawnień dostępu do plików, aby uniknąć problemów z kompilacją.</p>
+					<p>Następujące z folderów w powyższej paczce powinny szczególnie Cię interesować:</p>
+					<ul>
+						<li><em>compilers</em> - gotowy kompilator Linoleum w kilku wariantach, podstawowym jest <em>win32m</em></li>
+						<li><em>diagrams</em> - slajdy z ogólnym zarysem języka; ten poradnik ma ambicje, by je zastąpić</li>
+						<li><em>examples</em> - źródła bardziej zaawansowanych przykładowych programów</li>
+						<li>
+							<em>main</em>
+							<ul>
+								<li><em>cpu</em> - część <em>modułu uruchomieniowego</em> zajmująca się wsparciem procesorów</li>
+								<li><em>lib</em> - biblioteka standardowa</li>
+								<li><em>sys</em> - część <em>modułu uruchomieniowego</em> zajmująca się wsparciem systemów operacyjnych</li>
+							</ul>
+						</li>
+						<li><em>my</em> - folder przeznaczony na Twoje programy</li>
+						<li><em>whats</em> - zbiór plików wyjaśniających koncepty używane w języku; one również zostaną opracowane w tym poradniku</li>
+					</ul>
+					<p>Najprostszym sposobem kompilowania programów Lino jest utworzenie skrótu do kompilatora na Pulpicie i przeciąganie na niego plików źródłowych. Można też dodać kompilator do menu kontekstowego plików <em>.txt</em> (to oficjalne rozszerzenie kodu źródłowego L.in.oleum) poprzez zaimportowanie pliku <em>.reg</em> o następującej treści:</p>
+					<pre>Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\txtfile\shell\LinoCompiler]
+@="L.in.oleum Compiler"
+[HKEY_CLASSES_ROOT\txtfile\shell\LinoCompiler\command]
+@="C:\\linoleum\\compilers\\i386\\win32\\\\win32m\\lcomp.exe --env:/C/linoleum/main--cpu:i386--sys:win32m--ext:.exe--src:%1"</pre>
+					<p>Aby opcja w menu działała poprawnie, Lino musi zostać rozpakowane do folderu <code>C:\linoleum</code>.</p>
+
+					<a id="m_hello" name="#m_hello"></a>
+					<h2>Hello, world!</h2>
+					<p>Pora napisać swój pierwszy program w L.in.oleum. Tymczasowo nie wnikajmy w jego działanie - po prostu wklej lub przepisz poniższy plik do Notatnika i zapisz jako plik <em>.txt</em>. Skompiluj program, przeciągając go na ikonę kompilatora.</p>
+					<pre>"libraries"
+
+	/arch/cpu/base;
+	/hmi/conout;
+
+
+"directors"
+
+	unit = 32;
+	program name = { Hello_world! };
+	display status = engage;
+
+
+"variables"
+
+	t msg hello = { Hello_world! } : 8;
+
+
+"injection"
+
+	conout . t say: t msg hello;
+	bye;</pre>
+					<p>
+						Po skompilowaniu i uruchomieniu programu powinieneś ujrzeć widok podobny do tego:
+						<img src="img/tut_hello1.png" alt="Konsola z napisem &quot;Hello, world!&quot;" />
+						Po naciśnięciu klawisza <code>Enter</code> program zakończy się.
+					</p>
+
+					<a id="m_explained" name="m_explained"></a>
+					<h3>Objaśnienie</h3>
+					<p>Oczywiście skopiowanie czyjegoś programu nie czyni z nikogo programisty. Postaram się teraz wyjaśnić, jak powyższy kod działa.</p>
+					<p>Widoczne powyżej fragmenty w cudzysłowach to <em>sekcje</em>. Istnieje 8 sekcji, każda z nich pełni inną funkcję i ma swoje reguły składni. Są to:</p>
+					<ul>
+						<li><code>&quot;libraries&quot;</code></li>
+						<li><code>&quot;stockfile&quot;</code></li>
+						<li><code>&quot;directors&quot;</code></li>
+						<li><code>&quot;constants&quot;</code></li>
+						<li><code>&quot;variables&quot;</code></li>
+						<li><code>&quot;workspace&quot;</code></li>
+						<li><code>&quot;preambles&quot;</code></li>
+						<li><code>&quot;injection&quot;</code></li>
+					</ul>
+					<p>Sekcje <em>muszą</em> występować w programie w powyższej kolejności.</p>
+					<p>Każdy program w Lino musi zawierać sekcję <code>injection</code>, która oznacza, że dalej następuje już tylko kod programu. Pozostałe sekcje są opcjonalne i niosą informacje dla kompilatora, na przykład wymagane przez program biblioteki lub deklaracje stałych i zmiennych. Trudno jednak byłoby napisać program, który zawiera tylko sekcję <code>injection</code>. Z pewnością nie byłby on zbyt użyteczny.</p>
+					<p>Poniżej zamieszczam opis sekcji użytych w programie <em>Hello world</em>.</p>
+
+					<h3><em>libraries</em></h3>
+					<p>Pod tą sekcją zamieszczone są nazwy bibliotek, które są używane przez program. Ze względu na przenośność, Lino zawsze używa w ścieżkach zwykłych ukośników (<code>/</code>). Nie podaje się rozszerzeń plików do dołączenia.</p>
+					<p>Ukośnik na początku ścieżki oznacza, że należy poszukiwać danej biblioteki względem głównego katalogu bibliotek (<em>Linoleum\main\lib</em>). Brak ukośnika oznacza ścieżkę względem danego pliku. Dla takich bibliotek ze względu na czytelność preferowane jest poprzedzenie ścieżki symbolami <code>./</code>.</p>
+					<pre>"libraries"
+
+	/arch/cpu/base;
+	/hmi/conout;</pre>
+					<p>Powyższy program dołącza dwie biblioteki: <code>/arch/base</code> oraz <code>/hmi/conout</code>. Pierwsza odpowiada za podstawowe cechy architektury i dostarcza polecenia <code>bye</code>, natomiast druga umożliwia łatwe wypisywanie tekstu do konsoli. Po nazwach bibliotek muszą pojawić się średniki.</p>
+					<p>Powinieneś zauważyć, że w kodzie znajduje się linia <code>/arch/cpu/base</code>, natomiast powyżej napisałem o bibliotece <code>/arch/base</code>. Nie jest to błąd, lecz celowy zabieg: ciąg <code>cpu</code> jest traktowany jako specjalne wyrażenie. Przy kompilacji zostaje on zastąpiony nazwą architektury, dla której program jest kompilowany. Jeśli taka biblioteka nie istnieje, kompilator pominie ten fragment ścieżki.</p>
+					<p>Oznacza to, że kompilator w pierwszej kolejności będzie starał się użyć wersji zoptymalizowanej np. dla architektury i386 (<code>lib/arch/i386/base.txt</code>), a dopiero później ogólnej wersji biblioteki (<code>lib/arch/base.txt</code>).</p>
+					<p>Podobnie, specjalne znaczenie ma też słowo <code>sys</code> (jest zastępowane nazwą docelowej platformy systemowej), więc należy unikać stosowania go w nazwach bibliotek.</p>
+
+					<h3><em>directors</em></h3>
+					<p>Ta sekcja zawiera listę dyrektyw dla kompilatora. Mają one postać prostych przypisań. Dopuszczalne są następujące dyrektywy:</p>
+					<ul>
+						<li><code>unit</code> - zakładana ilość bitów w słowie maszynowym docelowego procesora. Obecnie dyrektywa jest opcjonalna, ponieważ kompilator wspiera tylko słowa 32-bitowe.</li>
+						<li><code>program name</code> - nazwa programu, dodawana w celach czysto kosmetycznych - kompilator ją ignoruje.</li>
+						<li>początkowe wartości zmiennych <em>isokernela</em> - szerszy opis samego <em>isokernela</em> wraz z jego zmiennymi nastąpi w dalszej części poradnika.</li>
+					</ul>
+					<p>Przeanalizujmy dyrektywy sekcji <code>directors</code> z powyższego programu:</p>
+					<pre>"directors"
+
+	unit = 32;
+	program name = { Hello_world! };
+	display status = engage;</pre>
+					<p>Z tego wycinka wynika, że program jest przeznaczony dla procesorów 32-bitowych i nazywa się <em>Hello world!</em> (sposób zapisu tekstu zostanie wyjaśniony dalej). Trzecia dyrektywa ustawia zmienną <em>isokernela</em> tak, by uruchomił on program w oknie konsoli.</p>
+
+					<h3><em>variables</em></h3>
+					<p>W tej sekcji deklaruje się zmienne, które zostaną umieszczone <em>wewnątrz programu</em> wraz z ich początkowymi wartościami. Innymi słowy, każdy bajt zmiennej zwiększa o jeden bajt wielkość skompilowanego programu. Zmienne są umieszczane w pamięci jedna po drugiej.</p>
+					<p>L.in.oleum umożliwia inicjalizację zmiennej trzema rodzajami danych: wektorem liczb, napisem ASCII lub napisem UCS-X.</p>
+					<p>Wektor liczb to po prostu ich ciąg oddzielony średnikami. Zostaną one umieszczone w programie w tej samej kolejności, w której znajdą się w wektorze. Pojedyncza liczba w zmiennej to po prostu wektor o długości 1.</p>
+					<p>Natywne wsparcie dwóch formatów napisów jest następstwem faktu, że Lino zawsze pracuje na pojedynczych słowach maszynowych. W formacie ASCII w każdym słowie maszynowym jest umieszczane tyle znaków ASCII, ile się w nim mieści (4 znaki w procesorach 32-bitowych). Format UCS-X zawiera dokładnie jeden znak w każdym słowie maszynowym, zapisany przy pomocy tego samego kodowania znaków, na którym oparte jest UTF-8.</p>
+					<p>Format UCS-X zajmuje 4 razy więcej miejsca w pamięci, jednak wykonywanie na nim niektórych operacji jest łatwiejsze. Biblioteka standardowa Lino zawiera procedury umożliwiające konwersje między oboma formatami. Również funkcje wypisujące tekst są dostępne zarówno dla kodowania ASCII, jak i UCS-X.</p>
+					<p>Program <em>Hello world!</em> zawiera jedną zmienną inicjalizowaną napisem ASCII:</p>
+					<pre>"variables"
+
+	t msg hello = { Hello_world! } : 8;</pre>
+					<p>Napisy podaje się w nawiasach klamrowych. Jeśli po nawiasie znajduje się ciąg <code>: 8</code>, to zostanie on zapisany w formacie ASCII.</p>
+					<p>Zauważ, że w finalnym programie zamiast podkreślnika (<code>_</code>) pojawia się spacja. Jest to celowe zachowanie, wynikające z jednej istotnej cechy kompilatora:</p>
+					<p class="alert alert-info">Kompilator L.in.oleum ignoruje wszystkie znaki białe, to znaczy spacje, tabulatory i znaki nowego wiersza.</p>
+					<p>Dlatego w napisach zamiast spacji należy używać podkreślników. Gdyby zadeklarować zmienną następująco:</p>
+					<pre>t msg hello = { Hello world! } : 8;</pre>
+					<p>to kompilator pominąłby spację, a program wyświetliłby tekst <em>Helloworld!</em>.</p>
+					<p>Oto tabela wszystkich znaków o specjalnym znaczeniu oraz ich odpowiedników w napisach:</p>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Znak specjalny</th>
+								<th>Zamiennik w napisach</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Spacja</td>
+								<td><code>_</code></td>
+							</tr>
+							<tr>
+								<td>Znak nowego wiersza</td>
+								<td><code>\lf</code></td>
+							</tr>
+							<tr>
+								<td>Znak powrotu karetki</td>
+								<td><code>\cr</code></td>
+							</tr>
+							<tr>
+								<td>Tabulator</td>
+								<td><code>\ta</code></td>
+							</tr>
+							<tr>
+								<td>Zamykający nawias klamrowy (<code>}</code>)</td>
+								<td><code>\cs</code></td>
+							</tr>
+							<tr>
+								<td>Podkreślenie (<code>_</code>)</td>
+								<td><code>\us</code></td>
+							</tr>
+							<tr>
+								<td>Odwrotny ukośnik (<code>\</code>)</td>
+								<td><code>\\</code></td>
+							</tr>
+						</tbody>
+					</table>
+					<p>Kompilator automatycznie umieszcza po napisach znak bajt o wartości 0, który oznacza ich zakończenie. Nie dzieje się tak w przypadku wektorów liczb.</p>
+
+					<h3><em>injection</em></h3>
+					<p>Po tej sekcji znajduje się właściwy kod programu - w przykładzie powyżej złożony tylko z dwóch linijek.</p>
+					<pre>"injection"
+
+	conout . t say: t msg hello;
+	bye;</pre>
+					<p>Pierszą linijkę należy rozumieć następująco: <em>wywołaj znajdującą się w przestrzeni nazw <code>conout</code> procedurę <code>t say</code>, przekazując jej argument <code>t msg hello</code></em>.</p>
+					<p>Jeśli nie spotkałeś się jeszcze z pojęciem przestrzeni nazw, oto krótkie objaśnienie. Powiedzmy, że chcesz użyć dwóch bibliotek, które ściągnąłeś z Internetu. Może się zdarzyć, że obie zawierają procedurę o tej samej nazwie. Lino rozwiązuje ten problem w ten sposób, że każda biblioteka operuje we własnej przestrzeni nazw zadeklarowanej na początku biblioteki. Aby odwołać się do jej procedur, należy poprzedzić je nazwą przestrzeni.</p>
+					<p>Wróćmy do kodu. Zwróć uwagę, że <code>t msg hello</code> jest nazwą zmiennej zadeklarowanej w sekcji <code>variables</code>.</p>
+					<p>Zauważ też, że tą linijkę moglibyśmy zapisać również w postaci:</p>
+					<pre>conout.tsay:tmsghello;</pre>
+					<p>... bo kompilator ignoruje wszystkie białe znaki. Ze względu na czytelność programu lepiej jednak unikać takiego zapisu. Białe znaki znacznie ułatwiają szybkie zorientowanie się w kodzie.</p>
+					<p>Procedura <code>bye</code> jest zdefiniowana w przestrzeni nazw <code>arch</code>, jednak jest procedurą <em>udostępnioną</em> - to znaczy, że mimo to należy do globalnej przestrzeni nazw. Powoduje ona wstrzymanie programu na 60 sekund, później jest on zamykany. Dodatkowo:</p>
+					<ul>
+						<li>Jeśli program pracuje w trybie konsoli, użytkownik może zakończyć go wcześniej klawiszem <kbd>Enter</kbd>.</li>
+						<li>W trybie graficznym możliwe jest zatrzymanie programu poprzez kliknięcie w obszarze okna.</li>
+						<li>Jeśli nie jest dostępny żaden interfejs (ani konsola, ani okno graficzne), program wyświetli małą ikoną na środku ekranu i będzie oczekiwał na naciśnięcie dowolnego klawisza.</li>
+					</ul>
+					<p>Jest to więc uniwersalny i wygodny sposób wstrzymania pracy programu zaraz przed jego zakończeniem.</p>
+
+					<h3>Czego powinieneś się nauczyć:</h3>
+					<ul>
+						<li>Do czego służą sekcje <code>libraries</code>, <code>directors</code>, <code>variables</code> oraz <code>injection</code>.</li>
+						<li>Jak zadeklarować w L.in.oleum zakończony bajtem 0 napis ASCII oraz UCS-X.</li>
+						<li>Jak kodować w napisach białe znaki, klamrę zamykającą, odwrotny ukośnik i podkreślnik.</li>
+						<li>Jakiej procedury bibliotecznej użyć, by wypisać tekst.</li>
+					</ul>
+
+					<p><strong>Zadanie domowe:</strong></p>
+					<p>Przeanalizuj jeszcze raz cały kod programu i upewnij się, że rozumiesz jak działa. W ramach ćwiczenia wypisz w jednej linii cyfry od 0 do 4 oddzielone tabulatorami, natomiast w drugiej linii cyfry 5-9 oddzielone podkreślnikami.</p>
+
+					<a id="m_quine" name="m_quine"></a>
+					<h2>Quine, czyli program wypisujący własny kod</h2>
+					<p>Stworzenie takiej aplikacji w L.in.oleum jest na tyle proste, że może wręcz zostać użyte jako narzędzie dydaktyczne! Zadanie znacznie ułatwia sekcja <code>stockfile</code>, z którą za chwilę Cię zapoznam. Dowiesz się też, czym jest <em>isokernel</em> i jak go używać.</p>
+
+					<h3>Sekcja <em>stockfile</em></h3>
+					<p>Składnia tej sekcji jest podobna, jak sekcji <code>libraries</code>: składa się ona ze ścieżek do plików oddzielonych średnikami (oraz opcjonalnie białymi znakami). Każdy wymieniony plik zostanie wbudowany przez kompilator do pliku wynikowego, to znaczy znajdzie się w całości wewnątrz programu i będziesz mógł używać go jak pliku na dysku.</p>
+					<p>Skorzystamy z tej sekcji, by wbudować do programu jego własny kod źródłowy. Plik ze źródłem będzie się nazywał <em>quine.txt</em>, a w jego wnętrzu znajdzie się między innymi następujący kod:</p>
+					<pre>"stockfile"
+
+	quine;</pre>
+					<h3><em>isokernel</em></h3>
+					<p>... jest to część modułu uruchomieniowego, z której będziesz często korzystał.</p>
+					<p><em>Isokernel</em> jest warstwą pośredniczącą pomiędzy Twoim programem, a systemem operacyjnym. Jeśli chcesz zażądać od systemu wykonania jakiejś operacji - np. wypisania tekstu, narysowania grafiki lub wykonania operacji na pliku - będziesz musiał użyć isokernela.</p>
+					<p>Nie jest to nic skomplikowanego. Wystarczy ustawić odpowiednie zmienne i zażądać wywołania isokernela. On odczyta swoje zmienne, sprawdzi, czego od niego oczekujesz i postara się wykonać polecenie.</p>
+					<p>Być może pomyślałeś teraz: <em>&quot;Hej, przecież już wcześniej wypisywałem tekst na ekran, ale wcale nie korzystałem w tym celu z isokernela!&quot;</em>. Masz rację i mylisz się zarazem. Nie wywołałeś polecenia isokernela <em>wprost</em>, ale użyłeś procedury <code>conout . t say</code>. Ona z kolei ustawiła wymagane parametry i wywołała isokernel.</p>
+					<p>Część innych operacji, które będziesz chciał wykonać, też ma już opakowujące je procedury - znajdziesz je w bibliotece standardowej. Dla pozostałych dobrze jest napisać je samemu, jeśli zamierzasz częściej z nich korzystać.</p>
+					<p>Weźmy przykładowe wywołanie isokernela, które zatrzymuje program na 5 sekund:</p>
+					<pre>[thread command] = suspend thread;
+[thread suspend time] = 5000;
+
+isocall;</pre>
+					<p>Najpierw przypisujemy do zmiennej o nazwie <code>thread command</code> wartość stałej <code>suspend thread</code> (więcej o stałych i zmiennych dowiesz się dalej). Dzięki tej zmiennej isokernel rozpozna, że powinien wywołać w systemie polecenie wstrzymania wątku programu.</p>
+					<p>Następnie do zmiennej <code>thread suspend time</code> przypisywana jest liczba <code>5000</code>. Po znalezieniu odpowiedniej wartości w poprzedniej zmiennej, isokernel zajrzy do tej w poszukiwaniu czasu, na jaki ma wstrzymać wątek.</p>
+					<p>Na koniec trzeba jeszcze wywołać sam isokernel poleceniem <code>isocall</code>. Po wykonaniu swoich zadań isokernel wróci do miejsca w programie, z którego został wywołany.</p>
+					<p>Problem z powyższym zapisem jest taki, że zaciemnia on kod. W celu poprawy czytelności język wyposażono w dwa wyrażenia grupujące, które są zupełnie ignorowane podczas kompilacji: <code>with,</code> oraz <code>with presets,</code>. Po użyciu pierwszego powyższy fragment kodu powinien wyglądać tak:</p>
+										<pre>with,
+
+	[thread command] = suspend thread;
+	[thread suspend time] = 5000;
+
+isocall;</pre>
+					<p>Dodanie na początu <code>with,</code> nie zmieni w ogóle działania ani kodu programu po kompilacji, jednak sprawi, że kod źródłowy będzie bardziej czytelny. Twórca Lino zaleca używanie <code>with,</code> do przypisywania zmiennym wartości jednorazowych, natomiast <code>with presets,</code> do przypisywania wartości, które zostaną użyte wielokrotnie. Tych dwóch słów kluczowych używa się również przy przekazywaniu argumentów do procedur, co pokażę później.</p>
+					<p>Istnieje również trzecie kosmetyczne słowo kluczowe: <code>as,</code>. Służy ono do grupowania linii przeprowadzających obliczenia.</p>
+
+					<h3>Etykiety</h3>
+					<p>W programach asemblerowych kod niekoniecznie jest wykonywany od góry do dołu. Nie mam tu na myśli jedynie wywoływania procedur. Po ich wykonaniu program jest kontynuowany od miejsca, gdzie procedura została wywołana.</p>
+					<p>Dla procesora nie byłoby jednak problemem nie wracać do miejsca, w którym wcześniej skoczył do procedury. Tak naprawdę właśnie w ten sposób realizowane są instrukcje warunkowe oraz pętle.</p>
+					<p>W programach Lino między dowolnymi dwoma instrukcjami możesz umieścić <em>etykietę</em>. Możesz nadać jej (prawie) dowolną nazwę, której później będziesz używał, by odwoływać się do tej etykiety.</p>
+					<p>Etykiety występują tylko w sekcjach <code>injection</code> oraz <code>preambles</code>. Mają składnię identyczną jak sekcje, jednak ich nazwy nie mogą być takie same jak nazwy sekcji. Etykiety podlegają zamknięciu w przestrzeniach nazw, jednak można <em>udostępnić je</em> (wyjąć z przestrzeni nazw) dodając na początku słowo <code>shared</code>. Podczas kompilacji nazwy etykiet zostają zamienione na adresy w kodzie programu.</p>
+					<p>Przejście do etykiety (czy też właściwie adresu) odbywa się poprzez wykonanie <em>skoku</em>. Skoki dzielą się na bezwarunkowe i warunkowe. Te pierwsze są po prostu instrukcją, która nakazuje procesorowi kontynuowanie wykonywania programu od innego adresu. Skoki warunkowe są odpowiednikiem instrukcji warunkowych w językach wyższego poziomu, które zaprezentuję w dalszych przykładach.</p>
+
+					<h3>Zmienne</h3>
+					<p>Jeśli nie programowałeś wcześniej w asemblerze, to musisz zapamiętać następujący fakt:</p>
+					<p class="alert alert-info">W asemblerach zmienne zawsze są wskaźnikami.</p>
+					<p>Jest to mechanizm zupełnie odwrotny, niż na przykład w C - tam nazwa zmiennej odpowiada jej wartości, natomiast wskaźnik - adresowi. Zmiennych w C używa się następująco:</p>
+					<pre>// przykład 1
+int zmienna;
+zmienna = 42;
+
+// przykład 2
+int *wskaznik;
+*wskaznik = 6 * 9;</pre>
+					<p>W Lino zawsze, gdy w sekcji <code>variables</code> deklarujesz nową zmienną, będzie ona wskaźnikiem, a jej dereferencji będziesz dokonywał biorąc jej nazwę w nawiasy klamrowe. Nie jest możliwe używanie zmiennej w pierwszy sposób z przykładu powyżej (za to analogiczną operację można za to przeprowadzić na rejestrach).</p>
+					<p>Kod analogiczny do powyższego drugiego przykładu i napisany w L.in.oleum wygląda następująco:</p>
+					<pre>"variables"
+	wskaznik = 0;
+"injection"
+	[wskaznik] = 42;</pre>
+					<p>Zwróć uwagę na pewną niekonsekwencję - w sekcji <code>variables</code> nie używa się nawiasów klamrowych wokół nazwy zmiennej.</p>
+					<p>Wystarczy już teorii, przejdźmy do praktyki!</p>
+
+					<h3>Kod źródłowy</h3>
+					<pre class="pre-scrollable">"libraries"
+
+	/arch/cpu/base;
+	/hmi/conout;
+	/data/bytes;
+	/data/heap;
+	/data/heap/connect/mgrab;
+
+
+"stockfile"
+
+	quine;
+
+
+"directors"
+
+	unit = 32;
+	program name = { Quine };
+	display status = engage;
+
+
+"injection"
+
+	[heap . on alloc success] = proceed;
+	[heap . on alloc failure] = failure [breakpoint];
+
+	with,
+
+		[file command] = test file;
+		[file name] = stockfile;
+
+	isocall;
+
+	[file status] & [ready] [can read file];
+
+	? [file status] = [ready] [can read file] > prepare buffer;
+
+"failure"
+
+	> arch . kthxbye;
+
+"prepare buffer"
+
+	as,
+
+		a = [file size];
+		+ a;
+
+	a <- bytes . byte size convert: a;
+
+	b <- heap . alloc: a;
+
+	with,
+
+		[file command] = read file;
+		[file name] = stockfile;
+		[file position] = zero;
+		[file block size] = [file size];
+		[file block pointer] = b;
+
+	arch . file read;
+	? failed > failure;
+
+	conout . t say: b;
+
+	bye;</pre>
+					<p>Skompiluj powyższe źródło i sprawdź, że program faktycznie działa! Pamiętaj, że plik z kodem musi się nazywać <em>quine.txt</em> (lub musisz zmienić nazwę pliku w sekcji <code>stockfile</code>).</p>
+
+					<h3>Nowe biblioteki</h3>
+					<p>Najpierw uzasadnię, w jakim celu dołączyłem do programu trzy nowe biblioteki.</p>
+					<p>Tak jak wcześniej wspominałem, pliki dołączone poprzez sekcję <code>stockfile</code> zachowują się tak samo, jak pliki na dysku. Oznacza to, że aby ich użyć będzie trzeba wczytać je do pamięci programu.</p>
+					<p>Najpierw pobierzemy długość pliku, który chcemy wczytać. Następnie użyjemy procedury <code>byte size convert</code> z biblioteki <code>/data/bytes</code>, by obliczyć ile 4-bajtowych jednostek pamięci zajmie plik.</p>
+					<p>Następnie zaalokujemy odpowiednią ilość pamięci ze sterty - umożliwi to procedura <code>alloc</code> z biblioteki <code>/data/heap</code>.</p>
+					<p>Trzecia biblioteka <code>/data/heap/connect/mgrab</code> również odpowiada za zarządzanie pamięcią. Mówiąc w skrócie, <code>/data/heap</code> jest tylko ogólnym interfejsem dla programisty, który wymaga podłączenia innego menedżera pamięci. <code>mgrab</code> jest właśnie takim menedżerem.</p>
+
+					<h3>Jak to działa?</h3>
+					<p>Przejdźmy teraz do sekcji <code>injection</code>. Lepiej się skoncentruj, bo dwie linijki, które teraz opiszę, "przemycają" znacznie więcej nowych konceptów, niż mogłoby się wydawać.</p>
+					<pre>[heap . on alloc success] = proceed;
+[heap . on alloc failure] = failure [breakpoint];</pre>
+					<p>Występują tu trzy operacje, z którymi wcześniej się spotkałeś, oraz jedna, która na pierwszy rzut oka nie jest widoczna.</p>
+					<p>Pierwsza z nich to przypisanie: wyrażenie po lewej stronie znaku równości otrzymuje wartość wyrażenia po prawej stronie. Druga to dostęp do przestrzeni nazw: zmienne <code>on alloc success</code> i <code>on alloc failure</code> znajdują się w przestrzeni nazw <code>heap</code>.</p>
+					<p>Trzecia operacja to dereferencja. Jak już wspomniałem przy okazji programu <em>Hello world!</em>, wyrażenia w nawiasach kwadratowych po lewej stronie znaku równości to nazwy zmiennych, a każda zmienna jest w Lino wskaźnikiem. Nawiasy klamrowe mówią, że chcemy przypisać nową wartość do <em>wartości</em> zmiennych.</p>
+					<p>Czwarta, niewidoczna operacja, to <em>domniemane dodawanie</em>. Jeśli go nie widzisz, to niczym się nie przejmuj - wcale nie łatwo je dostrzec. Znajduje się ono w drugiej linijce. Gdybyśmy przetłumaczyli ją na C, to wyglądałaby następująco:</p>
+					<pre>*heap_onAllocFailure = failure + BREAKPOINT;</pre>
+					<p><code>failure</code> to nazwa etykiety pojawiającej sie w dalszej części programu, natomiast <code>breakpoint</code> jest stałą udostępnioną z biblioteki <code>arch</code>. Do pobrania wartości stałej nie używa się nawiasów kwadratowych. Mimo to wystąpiły one w powyższym kodzie, jednak pełnią tam zupełnie inne zadanie. Zapamiętaj następujące reguły:</p>
+					<p class="alert alert-info">Jeśli dwie nazwy stałych występują obok siebie, to przeprowadzone zostanie domniemane dodawanie.</p>
+					<p class="alert alert-info">Jeśli nawiasy kwadratowe występują obok operatora arytmetycznego lub domniemanego dodawania, to <strong>nie</strong> oznaczają dereferencji, a jedynie początek i koniec nazwy stałej.</p>
+					<p>Są to bodaj najbardziej skomplikowane reguły składniowe w całym L.in.oleum, więc jeśli przebrniesz przez nie, dalej powinno już pójść gładko. Zauważ, że domniemane dodawanie zawsze występuje w parze z drugą regułą (ale nie <em>vice versa</em>). Więcej przykładów takiego użycia nawiasów i domniemanego dodawania znajdziesz w Dodatku.</p>
+					<p>Tak więc druga z powyższych linijek oznacza: <em>weź adres programu, który oznacza etykieta <code>failure</code>, i powiększ go o wartość stałej <code>breakpoint</code></em>.</p>
+					<p>Zanim kontynuujesz czytanie, upewnij się, że rozumiesz, co tak naprawdę dzieje się w powyższym kodzie. W kolejnych akapitach postaram się wyjaśnić, <em>czemu</em> to się dzieje.</p>
+					<p>Powyższe dwie linijki kodu inicjują tzw. <em>spojenia</em>. Spojenie jest w Lino odpowiednikiem wyjątków z języków wysokopoziomowych. Jeśli nie wiesz, czym jest wyjątek, nie przejmuj się: poniżej przedstawiam najprostsze (jak sądzę) wyjaśnienie działania spojenia:</p>
+					<p>W naszym programie wykorzystujemy bibliotekę <code>heap</code>, która umożliwia przydzielenie programowi dodatkowej pamięci. Jednak operacja pobierania pamięci z systemu może się nie udać. Twórca biblioteki zamiast narzucić nam, co ma się wtedy stać, pozwolił nam podjąć decyzję:</p>
+					<ul>
+						<li>Jeśli spojenie jest równe wartości stałej <code>proceed</code>, to przetwarzanie kodu jest normalnie kontynuowane.</li>
+						<li>Jeśli spojenie zawiera adres procedury z dodaną stałą <code>downstream</code>, to wykonana zostanie ta procedura, a następnie przetwarzanie kodu będzie normalnie kontynuowane.</li>
+						<li>Jeśli spojenie zawiera adres etykiety z dodaną stałą <code>breakpoint</code>, to wykonany zostanie skok do tej etykiety.</li>
+					</ul>
+					<p>Pierwszy przypadek oznacza zazwyczaj zignorowanie błędu. Drugiego używa się, gdy wiemy, że błąd mógł nastąpić i wiemy, jak go obsłużyć (np. chcemy otworzyć plik, który nie istnieje, więc tworzymy pusty plik). Trzeci przypadek zwykle wiąże się z awaryjnym zakończeniem programu. (szczegóły implementacyjne spojeń zostały opisane w Dodatku.</p>
+					<p>Wróćmy do naszego kodu:</p>
+					<pre>[heap . on alloc success] = proceed;
+[heap . on alloc failure] = failure [breakpoint];</pre>
+					<p>Mam nadzieję, że teraz jest dla Ciebie jasne, że po prostu decydujemy tu co stanie się, gdy alokacja pamięci powiedzie się lub nie. Jeśli wszystko pójdzie po naszej myśli, ignorujemy to (<code>proceed</code>). W przeciwnym przypadku skaczemy do etykiety <code>failure</code>.</p>
+					<p>Teraz sprawdzimy, czy możemy uzyskać dostęp do pliku i jaka jest jego wielkość:</p>
+					<pre>with,
+
+	[file command] = test file;
+	[file name] = stockfile;
+
+isocall;</pre>
+					<p>Jest to zwykłe wywołanie isokernela. Zauważy on wartość <code>test file</code> w zmiennej <code>file command</code> i spróbuje odczytać nazwę pliku do sprawdzenia ze zmiennej <code>file name</code>. Słowo <code>stockfile</code> oznacza, że chodzi nam o dane wbudowane w plik programu.</p>
+					<p>Isokernel ustawi dwie zmienne: <code>file status</code>, w której umieści informacje o gotowości pliku do odczytu, oraz <code>file size</code>, w której znajdzie się wielkość pliku wyrażona w bajtach.</p>
+					<p>Jak pamiętasz pisałem już, że operacje procesora zwracają wynik w miejsce jednego z operandów. Tak dzieje się w kolejnej linijce programu:</p>
+					<pre>[file status] & [ready] [can read file];</pre>
+					<p>Jej odpowiednik w C wyglądałby tak:</p>
+					<pre>file_status = file_status && (READY + CAN_READ_FILE);</pre>
+					<p>W praktyce jest to po prostu usunięcie ze zmiennej wszystkich informacji oprócz dwóch, które nas interesują: czy jej częścią są stałe <code>ready</code> oraz <code>can read file</code>. W kolejnym kroku sprawdzamy, czy stałe te faktycznie się tam znajdują:</p>
+					<pre>? [file status] = [ready] [can read file] > prepare buffer;</pre>
+					<p>Jest to wspomniany wcześniej skok warunkowy. Tą linijkę należy rozumieć: <em>Jeśli zmienna <code>file status</code> jest równa sumie stałych <code>ready</code> i <code>can read file</code>, wykonaj skok do etykiety <code>prepare buffer</code></em>. Zwróć uwagę, że tu również zostały użyte reguły o nawiasach kwadratowych i domniemanym dodawaniu. Zauważ też, że operatorem porównania w Lino jest pojedynczy znak równości (a nie podwójny, jak w C).</p>
+					<p>Skoki warunkowe w asemblerach nie posiadają odpowiednika <code>else</code> z C - jeśli nie zostanie wykonany skok, przetwarzanie kodu jest kontynuowane od tego samego miejsca. Stąd wniosek, że jeśli nasze sprawdzenie gotowości nie powiedzie się, to wykona się kod:</p>
+					<pre>"failure"
+
+	> arch . kthxbye;</pre>
+					<p>Pierwsza linia tego fragmentu - etykieta <code>failure</code> - pojawiła się już wcześniej w spojeniach. Tak więc zarówno w przypadku niepowodzenia alokacji pamięci, jak i przy braku możliwości odczytu pliku, wykonana zostanie kolejna linijka.</p>
+					<p>Znajduje się w niej skok bezwarunkowy, to znaczy następujący natychmiast, gdy procesor dotrze w to miejsce. <code>kthxbye</code> jest etykietą ze znanej Ci już biblioteki <code>/arch/base</code>. Etykieta ta zawiera kod powodujący natychmiastowe zakończenie programu.</p>
+					<p>Podsumowując dotychczasowy kod:</p>
+					<ol>
+						<li>Ustalamy, że w razie błędu alokacji pamięci należy skoczyć do punktu 5.</li>
+						<li>Wywołujemy isokernel z poleceniem przetestowania pliku <code>stockfile</code>. Otrzymujemy jego stan i wielkość.</li>
+						<li>Ze stanu pliku wyłuskujemy informacje o jego gotowości do odczytu.</li>
+						<li>Jeśli plik jest gotowy do odczytu, skaczemy do punktu 6.</li>
+						<li>Skaczemy do etykiety <code>arch . kthxbye</code>, która zakańcza program.</li>
+						<li>(ciąg dalszy programu)</li>
+					</ol>
+					<p>Oto kolejny fragment kodu do przeanalizowania:</p>
+					<pre>"prepare buffer"
+
+	as,
+
+		a = [file size];
+		+ a;
+
+	a <- bytes . byte size convert: a;</pre>
+					<p><code>prepare buffer</code> to etykieta, której nazwa pojawiła się już wcześniej w skoku warunkowym oraz w punkcie 4. powyższego podsumowania. Jest to więc kod wykonywany, jeśli póki co program nie napotkał problemów.</p>
+					<p>Jak wspomniałem wcześniej, <code>as,</code> jest poleceniem grupującym, które oznacza wykonywanie obliczeń. W tym konkretnym przypadku pobieramy wielkość pliku (zwrócioną wcześniej przez isokernel) do rejestru <code>A</code>, a następnie powiększamy ją o 1, by dopisać tam później bajt 0 (oznaczający koniec tekstu).</p>
+					<p>Zamiast <code>+ a</code> można było użyć instrukcji <code>a + 1</code>. Efekt jej działania byłby identyczny, jednak skompilowałaby się ona do nieco wolniejszego kodu. Operacje inkrementacji i dekrementacji (powiększania lub pomniejszania o 1) są szybsze od dodawania i odejmowania (niechlubnym wyjątkiem od tej zasady jest <a href="http://mark.masmcode.com/" target="_blank">Pentium 4</a>).</p>
+					<p>Tak więc po bloku <code>as,</code> w rejestrze <code>A</code> znajduje się ilość bajtów pamięci, które chcemy zaalokować. Jednak, jak już wiesz, Lino używa 4-bajtowych jednostek pamięci i to je będziemy rezerwować. W kolejnej linijce używamy biblioteki <code>/data/bytes</code>, aby przekonwertować otrzymają liczbę:</p>
+					<pre>a <- bytes . byte size convert: a;</pre>
+					<p>Jest to wywołanie procedury <code>bytes . byte size convert</code> z wartością rejestru <code>A</code> jako argumentem, a następnie zapisanie wartości zwróconej przez tą procedurę w tym samym rejestrze (choć mogliśmy użyć innego).</p>
+					<p>Teraz wykonajmy alokację pamięci. Ilość potrzebnych jednostek pamięci mamy zapisaną w rejestrze <code>A</code>, natomiast wskaźnik na otrzymany blok pamięci chcemy zapisać w rejestrze <code>B</code>.</p>
+					<pre>b <- heap . alloc: a;</pre>
+					<p>Biblioteka <code>/data/heap</code> nie tylko zaalokuje dla nas pamięć, ale też wyzeruje jej ostatni bajt. Dzięki temu możemy od razu skopiować do nowego bloku pamięci plik i nie martwić się, że na końcu nie znajdzie się zero.</p>
+					<p>Teraz zajmujemy się właściwym odczytem pliku:</p>
+					<pre>with,
+
+	[file command] = read file;
+	[file name] = stockfile;
+	[file position] = zero;
+	[file block size] = [file size];
+	[file block pointer] = b;
+
+arch . file read;
+? failed > failure;</pre>
+					<p>Zmienne zgrupowane w bloku <code>with,</code> są typowymi zmiennymi, których używa się w wywołaniu odczytu pliku przez isokernel. Dwa pierwsze przypisania nie wymagają wyjaśnienia, jeśli uważnie czytałeś część, w której opisywałem testowanie pliku.</p>
+					<p>Zmienna <code>file position</code> zawiera pozycję w bajtach, od której należy zacząć odczyt. Przypisujemy do niej wartość predefiniowanej stałej <code>zero</code> (konwencja Lino zaleca użycie tej stałej zamiast cyfry 0 tam, gdzie oznacza ona początek czegoś i może poprawić czytelność kodu).</p>
+					<p><code> file block size</code> to ilość bajtów, którą chcemy wczytać, natomiast <code>file block pointer</code> musi zawierać wskaźnik na pamięć, do której zostanie wczytany plik. Taki wskaźnik otrzymaliśmy wcześniej z procedury <code>heap . alloc</code> i zapisaliśmy w rejestrze <code>B</code>.</p>
+					<p>Na koniec moglibyśmy wywołać isokernel standardowym poleceniem <code>isocall</code>, jednak zamiast tego lepiej użyć procedury <code>arch . file read</code> - wykonuje ona dodatkowo szereg operacji gwarantujących, że bajty zostaną wczytane we właściwej kolejności.</p>
+					<p>Ostatnia linijka powyższego kodu to znany Ci już skok warunkowy. Słowo kluczowe <code>failed</code> oznacza sprawdzenie, czy ostatnia procedura zwróciła błąd. Przeciwieństwem jest <code>ok</code>, które sprawdza, czy procedura została wykonana poprawnie.</p>
+					<p>Przed użyciem skoku z warunkiem <code>ok</code> lub <code>failed</code> upewnij się, że wykonujesz go bezpośrednio po procedurze, oraz że ta procedura faktycznie zwraca informację o poprawności wykonania. Niektóre procedury mogą kończyć się nie zwracając statusu, taki skok daje wtedy nieprzewidywalne rezultaty. Podobnie, procedury zwracające wartość nie mogą zwrócić statusu - informacja o błędzie jest wtedy realizowana poprzez spojenie lub nonsensowną wartość zwracaną (np. ujemna długość tekstu itp.).</p>
+					<p>Jesteś tu jeszcze? Cierpliwości, to już prawie koniec...</p>
+					<p>Umieściliśmy już plik w pamięci i mamy pewność, że zaraz po nim jest bajt 0. Pozostało nam tylko wypisać go oraz pożegnać się z użytkownikiem w znany Ci już sposób:</p>
+					<pre>conout . t say: b;
+
+bye;</pre>
+					<p>To już wszystko. Podsumujmy algorytm programu:</p>
+					<ol>
+						<li>Ustalamy, że w razie błędu alokacji pamięci należy skoczyć do punktu 5.</li>
+						<li>Wywołujemy isokernel z poleceniem przetestowania pliku <code>stockfile</code>. Otrzymujemy jego stan i wielkość.</li>
+						<li>Ze stanu pliku wyłuskujemy informacje o jego gotowości do odczytu.</li>
+						<li>Jeśli plik jest gotowy do odczytu, skaczemy do punktu 6.</li>
+						<li>Skaczemy do etykiety <code>arch . kthxbye</code>, która zakańcza program.</li>
+						<li>Ustalamy ilość bajtów, które chcemy przydzielić programowi.</li>
+						<li>Obliczamy, ile jednostek pamięci potrzeba na zmieszczenie takiej ilości bajtów.</li>
+						<li>Alokujemy zakończony zerem blok pamięci i zapamiętujemy wskaźnik na niego.</li>
+						<li>Odczytujemy plik do pobranej wcześniej pamięci.</li>
+						<li>Wypisujemy plik standardową procedurą wypisującą tekst.</li>
+						<li>Czekamy 60 sekund lub na naciśnięcie przycisku.</li>
+					</ol>
+
+					<h3>Czego powinieneś się nauczyć:</h3>
+					<ul>
+						<li>Jak używać dołączyć do programu plik poprzez sekcję <code>stockfile</code>.</li>
+						<li>Czym jest isokernel i jak go wywołać.</li>
+						<li>Jak wstrzymać wykonywanie programu na zadany czas.</li>
+						<li>Do czego służą instrukcje grupujące, kiedy należy ich używać i jaki mają wpływ na działanie programu.</li>
+						<li>Czym są etykiety i jaką pełnią rolę w programie.</li>
+						<li>Jak dzielimy skoki i czym się one różnią.</li>
+						<li>Jak działają zmienne w L.in.oleum.</li>
+						<li>Czym jest spojenie i jak z niego korzystać.</li>
+						<li>Czym jest domniemane dodawanie i kiedy nawiasy kwadratowe nie oznaczają dereferencji.</li>
+						<li>Jak odczytać wielkość pliku i wczytać go do pamięci.</li>
+						<li>Jakiej etykiety z biblioteki <code>/arch/base</code> użyć, by zakończyć program.</li>
+						<li>Jak zaalokować blok pamięci o zadanej wielkości.</li>
+						<li>Jak sprawdzić, czy procedura wykonana się poprawnie, oraz kiedy nie można tego zrobić.</li>
+					</ul>
+
+					<p><strong>Zadanie domowe:</strong></p>
+					<p>Zmodyfikuj program <em>Quine</em> tak, by wypisywał komunikaty o błędach. Inny komunikat ma się pojawiać dla błędu alokacji pamięci, a inny w przypadku niemożliwości odczytu pliku. Utwórz odpowiednie etykiety i zmienne, w razie problemów posłuż się programem <em>Hello world!</em>.</p>
+
+					<a id="m_appendices" name="m_appendices"></a>
+					<div class="page-header">
+						<h1>Dodatki</h1>
+					</div>
+
+					<a id="m_syntax" name="m_syntax"></a>
+					<h2>Składnia</h2>
+
+					<ul>
+						<li>Kompilator nie rozróżnia wielkości liter.</li>
+						<li>Kompilator ignoruje wszystkie białe znaki.</li>
+						<li>Komentarze umieszcza się w nawiasach okrągłych: <code>(komentarz)</code>.</li>
+						<li>We wszystkich sekcjach dyrektywy lub instrukcje kończy się średnikiem.</li>
+					</ul>
+
+					<h3>Budowa programu</h3>
+					<ul>
+						<li>Kod źródłowy podzielony jest na sekcje.</li>
+						<li>Kolejność sekcji jest narzucona.</li>
+						<li>Nazwy sekcji znajdują się w cudzysłowach.</li>
+						<li>Każda sekcja ma własne reguły składni.</li>
+						<li>Każdy plik źródłowy musi zawierać sekcję <code>injection</code> lub <code>preambles</code>.</li>
+						<li>Żaden plik źródłowy nie może zawierać równocześnie obu tych sekcji.</li>
+						<li>Pliki z sekcją <code>injection</code> to kompilowalne źródła programów.</li>
+						<li>Pliki z sekcją <code>preambles</code> to biblioteki, których nie można bezpośrednio kompilować.</li>
+					</ul>
+					<p>Sekcje w kolejności występowania w programie:</p>
+					<table class="table">
+						<tr>
+							<td><code>libraries</code></td>
+							<td>Inne biblioteki wymagane przez dany plik źródłowy.</td>
+						</tr>
+						<tr>
+							<td><code>stockfile</code></td>
+							<td>Pliki, które mają być włączone do wynikowego pliku binarnego.</td>
+						</tr>
+						<tr>
+							<td><code>directors</code></td>
+							<td>Informacje dla kompilatora oraz początkowe wartości zmiennych isokernela.</td>
+						</tr>
+						<tr>
+							<td><code>constants</code></td>
+							<td>Stałe, których wartości zostaną podstawione podczas kompilacji.</td>
+						</tr>
+						<tr>
+							<td><code>variables</code></td>
+							<td>Zmienne, które zostaną wbudowane w plik wynikowy.</td>
+						</tr>
+						<tr>
+							<td><code>workspace</code></td>
+							<td>Zmienne, które zostaną zarezerwowane na stercie podczas uruchamiania programu.</td>
+						</tr>
+						<tr>
+							<td><code>injection</code></td>
+							<td>Instrukcje programu</td>
+						</tr>
+						<tr>
+							<td><code>preambles</code></td>
+							<td>Instrukcje biblioteki</td>
+						</tr>
+					</table>
+
+					<h3>Tagi</h3>
+					<ul>
+						<li>Tagi to operatory, które mają specjalne znaczenie dla kompilatora.</li>
+						<li>Tagi dzielą się na arytmetyczne, powrotne i specjalne.</li>
+						<li>Tagi powrotne kończą procedurę i zwracają w zadany sposób wartość (lub wykonują powrót bez jej zwracania).</li>
+						<li>Tagi arytmetyczne oznaczają, że działanie ma wykonać kompilator, lub że dodawanie ma być wykonane bezpośrednio podczas adresowania.</li>
+						<li>Tag specjalny <code>isocall</code> powoduje wywołanie isokernela.</li>
+					</ul>
+					<p>Tagi arytmetyczne:</p>
+					<table class="table">
+						<tr>
+							<td><code>plus</code>, <code>_</code></td>
+							<td>Dodawanie</td>
+						</tr>
+						<tr>
+							<td><code>minus</code></td>
+							<td>Odejmowanie</td>
+						</tr>
+						<tr>
+							<td><code>multiplied</code>, <code>mtp</code></td>
+							<td>Mnożenie</td>
+						</tr>
+						<tr>
+							<td><code>divided</code>, <code>div</code></td>
+							<td>Dzielenie</td>
+						</tr>
+					</table>
+					<p>Tagi powrotne:</p>
+					<table class="table">
+						<tr>
+							<td><code>end</code></td>
+							<td>Zapamiętuje pozytywne wykonanie procedury i zakańcza ją.</td>
+						</tr>
+						<tr>
+							<td><code>fail</code></td>
+							<td>Zapamiętuje niepowodzenie procedury i zakańcza ją.</td>
+						</tr>
+						<tr>
+							<td><code>leave</code></td>
+							<td>Zakańcza procedurę nie zwracając statusu wykonania.</td>
+						</tr>
+						<tr>
+							<td><code>return [register] <em>&lt;nazwa rejestru&gt;</em></code></td>
+							<td>Zakańcza procedurę zwracając wartość rejestru.</td>
+						</tr>
+						<tr>
+							<td><code>return [immediate] <em>&lt;liczba&gt;</em></code></td>
+							<td>Zakańcza procedurę zwracając stałą.</td>
+						</tr>
+						<tr>
+							<td><code>return [<em>&lt;nazwa zmiennej&gt;</em>]</code></td>
+							<td>Zakańcza procedurę zwracając wartość zmiennej.</td>
+						</tr>
+					</table>
+
+					<h3>Sekcja <em>libraries</em></h3>
+					<ul>
+						<li>Zawiera listę ścieżek do bibliotek, które kompilator ma dołączyć do programu.</li>
+						<li>Ścieżki nie zawierają rozszerzeń plików, domniemane jest rozszerzenie <em>.txt</em>.</li>
+						<li>Ścieżki zaczynające się od ukośnika (<code>/</code>) są rozpatrywane względem katalogu <em>lib</em>.</li>
+						<li>Pozostałe ścieżki są rozpatrywane względem katalogu kompilowanego pliku.</li>
+						<li>Dla pozostałych ścieżek ze względu na czytelność zaleca się poprzedzenie ich sekwencją <code>./</code>.</li>
+						<li>W ścieżkach słowa <code>cpu</code> oraz <code>sys</code> zostaną podmienione odpowiednio na nazwę używanego pakietu <em>cpu</em> oraz pakietu <em>sys</em>.</li>
+						<li>Jeśli plik po podmianie nie zostanie znaleziony, kompilator usunie słowo <code>cpu</code> i/lub <code>sys</code> ze ścieżki.</li>
+					</ul>
+					<p>Przykładowy kod sekcji:</p>
+					<pre>&quot;libraries&quot;
+
+	/arch/cpu/base;
+	/hmi/conout;
+	./canvas</pre>
+
+					<h3>Sekcja <em>stockfile</em></h3>
+					<ul>
+						<li>Zawiera listę ścieżek do plików, które kompilator ma wbudować w program.</li>
+						<li>Ścieżki nie zawierają rozszerzeń plików, domniemane jest rozszerzenie <em>.txt</em>.</li>
+						<li>Ścieżki są rozpatrywane względem katalogu kompilowanego pliku.</li>
+						<li>Wbudowane pliki są dostępne w wirtualnym pliku o nazwie <code>stockfile</code>.</li>
+					</ul>
+					<p>Przykładowy kod sekcji:</p>
+					<pre>&quot;stockfile&quot;
+
+	source;
+	image;</pre>
+
+					<h3>Sekcja <em>directors</em></h3>
+					<ul>
+						<li>Zawiera dyrektywy dla kompilatora oraz wartości inicjalizujące zmienne isokernela.</li>
+						<li>Kolejne dyrektywy i inicjalizatory mają postać przypisań znakiem równości (<code>=</code>).</li>
+						<li>Wartości przypisań mogą używać tagów arytmetycznych.</li>
+					</ul>
+					<p>Dyrektywy:</p>
+					<dl>
+							<dt><code>unit</code></dt>
+							<dd>Zakładana ilość bitów w bajcie. Obecnie opcjonalna za względu na wsparcie jedynie procesorów 32-bitowych.</dd>
+							<dt><code>program name</code></dt>
+							<dd>Napis UCS-X zawierający nazwę programu. Opcjonalny, ignorowany przez kompilator.</dd>
+							<dt><code>namespace</code></dt>
+							<dd>Nazwa identyfikatora przestrzeni nazw biblioteki.</dd>
+					</dl>
+					<p>Przykładowy kod w programie:</p>
+					<pre>&quot;directors&quot;
+
+	unit = 32;
+	program name = { Hello_world! };
+	display status = [engage] [graphics];</pre>
+					<p>Przykładowy kod w bibliotece</p>
+					<pre>&quot;directors&quot;
+
+	unit = 32;
+	namespace = canvaslib;</pre>
+
+					<h3>Sekcja <em>constants</em></h3>
+					<ul>
+						<li>Zawiera stałe, których nazwy kompilator zastąpi wartościami.</li>
+						<li>Kolejne stałe mają postać przypisań znakiem równości (<code>=</code>).</li>
+						<li>Wartości przypisań mogą używać tagów arytmetycznych.</li>
+						<li>Stałe isokernela są wbudowane w kompilator.</li>
+					</ul>
+					<p>Ważne stałe wbudowane:</p>
+					<ul>
+						<li><code>zero</code></li>
+						<li><code>null</code></li>
+					</ul>
+					<p>Przykładowy kod:</p>
+					<pre>&quot;constants&quot;
+
+	screen width = 640;
+	screen height = 480;
+	background color = FFFFFFh;</pre>
+
+					<h3>Sekcja <em>variables</em></h3>
+					<ul>
+						<li>Składnia identyczna jak sekcji <code>constants</code>.</li>
+						<li>Nazwy funkcjonują jako wskaźniki do zmiennych.</li>
+						<li>Dopuszczalne formaty to: wektor liczb, napis UCS-X, napis ASCII.</li>
+					</ul>
+					<p>Różnice między formatami:</p>
+					<dl>
+						<dt>Wektor liczb</dt>
+						<dd>Ciąg wartości liczbowych bajtów oddzielonych średnikami, nie zakończony bajtem 0.</dd>
+						<dt>Napis UCS-X</dt>
+						<dd>Napis zdefiniowany między nawiasami klamrowymi, z ewentualnym użyciem kodów ucieczki, zakończony bajtem 0. Każdy znak zostaje umieszczony w jednej jednostce pamięci.</dd>
+						<dt>Napis ASCII</dt>
+						<dd>Napis zdefiniowany między nawiasami klamrowymi oraz z sekwencję <code>: 8</code> po klamrze zamykającej, z ewentualnym użyciem kodów ucieczki, zakończony bajtem 0. W każdej jednostce pamięci zostaje umieszczone tyle znaków, ile jest ona w stanie pomieścić.</dd>
+					</dl>
+					<p>Kody ucieczki w napisach</p>
+					<table class=&quot;table&quot;>
+						<thead>
+							<tr>
+								<th>Znak specjalny</th>
+								<th>Zamiennik w napisach</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Spacja</td>
+								<td><code>_</code></td>
+							</tr>
+							<tr>
+								<td>Znak nowego wiersza</td>
+								<td><code>\lf</code></td>
+							</tr>
+							<tr>
+								<td>Znak powrotu karetki</td>
+								<td><code>\cr</code></td>
+							</tr>
+							<tr>
+								<td>Tabulator</td>
+								<td><code>\ta</code></td>
+							</tr>
+							<tr>
+								<td>Zamykający nawias klamrowy (<code>}</code>)</td>
+								<td><code>\cs</code></td>
+							</tr>
+							<tr>
+								<td>Podkreślenie (<code>_</code>)</td>
+								<td><code>\us</code></td>
+							</tr>
+							<tr>
+								<td>Odwrotny ukośnik (<code>\</code>)</td>
+								<td><code>\\</code></td>
+							</tr>
+						</tbody>
+					</table>
+					<p>Przykładowy kod:</p>
+					<pre>&quot;variables&quot;
+
+	counter = 0;
+	initial fibonacci numbers = 0; 1; 1; 2; 3; 5; 8;</pre>
+
+					<h3>Sekcja <em>workspace</em></h3>
+					<ul>
+						<li>Zawiera nazwy zmiennych do zaalokowania na stercie.</li>
+						<li>Nazwy funkcjonują jako wskaźniki do zmiennych.</li>
+						<li>Jeśli po nazwie zmiennej występuje gwiazdka (<code>*</code>) oraz liczba, to zostanie zaalokowana ilość jednostek pamięci określona liczbą.</li>
+						<li>W przeciwnym wypadku zaalokowana zostanie jedna jednostka pamięci.</li>
+						<li>Wartości po gwiazdce mogą używać tagów arytmetycznych.</li>
+					</ul>
+					<p>Przykładowy kod:</p>
+					<pre>&quot;workspace&quot;
+
+	action handler;
+	data array * 16;</pre>
+
+					<h3>Sekcja <em>preambles</em></h3>
+					<ul>
+						<li>Składnia identyczna jak w sekcji <code>injection</code> (opis poniżej).</li>
+						<li>Jest traktowana jak procedura w sekcji injection, musi kończyć się słowem kluczowym <code>leave</code>, często z komentarzem <code>(library preambles)</code> (konwencja języka).</li>
+						<li>Zawiera kod inicjujący bibliotekę, wykonywany automatycznie przed właściwym kodem programu.</li>
+						<li>Opcjonalnie podzielona na etykiety.</li>
+						<li>Wymagana w każdej bibliotece, nawet, jeżeli ma być pusta.</li>
+					</ul>
+					<p>Przykładowy kod pustej sekcji:</p>
+					<pre>&quot;preambles&quot;
+
+	leave (library preambles);</pre>
+
+					<h3>Sekcja <em>injection</em></h3>
+					<ul>
+						<li>Zawiera kod źródłowy programu.</li>
+						<li>Opcjonalnie podzielona na etykiety.</li>
+					</ul>
+
+					<h3>Etykiety</h3>
+					<ul>
+						<li>Występują tylko w sekcjach <code>injection</code> oraz <code>preambles</code>.</li>
+						<li>Składnia identyczna jak nazw sekcji, nie wymaga średnika na końcu: <code>&quot;<em>&lt;nazwa sekcji&gt;</em>&quot;</code>.</li>
+						<li>Działają jak stałe o wartości odpowiadającej adresowi w kodzie.</li>
+					</ul>
+
+					<h3>Operatory</h3>
+					<ul>
+						<li>Są symboliczne.</li>
+						<li>Kolejność symboli w każdym operatorze jest jednoznaczna.</li>
+						<li><em>(bezużyteczna ciekawostka)</em> Mogą być przeplatane operandami i komentarzami: <code>--> a (komentarz);</code> jest równoważne <code>-a-(komentarz)>;</code>.</li>
+						<li>Tylko trzy operatory mogą być używane zarówno jako unarne, jak i binarne: <code>+</code>, <code>-</code>, <code>&gt;</code>.</li>
+						<li>Niektóre operatory mogą przyjmować modyfikatory.</li>
+						<li>Konwencja języka: operatory unarne mają operand po prawej stronie.</li>
+						<li>Konwencja języka: modyfikatory występują na początku linii, przed pierwszym tabulatorem.</li>
+					</ul>
+					<p>Dostępne operatory:<br />(symbol &bull; oznacza, że operator zawsze wymaga modyfikatora)</p>
+					<table class="table">
+						<tr>
+							<th>Operator</th>
+							<th>Działanie</th>
+							<th>Przykład</th>
+						</tr>
+						<tr>
+							<td><code>=</code></td>
+							<td>Przypisanie</td>
+							<td><code>a = 42;</code></td>
+						</tr>
+						<tr>
+							<td colspan="3">Arytmetyczne</td>
+						</tr>
+						<tr>
+							<td><code>+</code></td>
+							<td>Dodawanie lub inkrementacja</td>
+							<td><code>+ a;</code>, <code>a + 3;</code></td>
+						</tr>
+						<tr>
+							<td><code>-</code></td>
+							<td>Odejmowanie lub inkrementacja</td>
+							<td><code>- a;</code>, <code>a - 3;</code></td>
+						</tr>
+						<tr>
+							<td><code>*</code></td>
+							<td>Mnożenie</td>
+							<td><code>a * 3;</code></td>
+						</tr>
+						<tr>
+							<td><code>/</code></td>
+							<td>Dzielenie</td>
+							<td><code>a / 3;</code></td>
+						</tr>
+						<tr>
+							<td><code>%</code></td>
+							<td>Reszta z dzielenia</td>
+							<td><code>a % 10;</code></td>
+						</tr>
+						<tr>
+							<td><code>/%</code></td>
+							<td>Dzielenie z resztą w odpowiednich operandach</td>
+							<td><code>a /% b;</code></td>
+						</tr>
+						<tr>
+							<td><code>+-</code></td>
+							<td>Zmiana znaku na przeciwny</td>
+							<td><code>+- a;</code></td>
+						</tr>
+						<tr>
+							<td><code>||</code></td>
+							<td>Wartość bezwzględna (zmiana znaku na dodatni)</td>
+							<td><code>|a|;</code></td>
+						</tr>
+						<tr>
+							<td colspan="3">Trygonometryczne i zmiennoprzecinkowe</td>
+						</tr>
+						<tr>
+							<td><code>~</code> &bull;</td>
+							<td>Sinus</td>
+							<td><code>~ a;</code></td>
+						</tr>
+						<tr>
+							<td><code>~~</code> &bull;</td>
+							<td>Cosinus</td>
+							<td><code>~~ a;</code></td>
+						</tr>
+						<tr>
+							<td><code>^/</code> &bull;</td>
+							<td>Arcus tangens</td>
+							<td><code>^/ a;</code></td>
+						</tr>
+						<tr>
+							<td><code>/~</code> &bull;</td>
+							<td>Pierwiastek kwadratowy</td>
+							<td><code>/~ a;</code></td>
+						</tr>
+						<tr>
+							<td><code>,,</code></td>
+							<td>Konwersja liczby zmiennoprzecinkowej na całkowitą</td>
+							<td><code>a ,, a;</code></td>
+						</tr>
+						<tr>
+							<td colspan="3">Skoki i pętle</td>
+						</tr>
+						<tr>
+							<td><code>&gt;</code></td>
+							<td>Skok bezwarunkowy</td>
+							<td><code>&gt; etykieta;</code></td>
+						</tr>
+						<tr>
+							<td><code>? ^</code></td>
+							<td>Pętla do osiągnięcia wartości ujemnych</td>
+							<td><code>? a ^ etykieta petli</code></td>
+						</tr>
+						<tr>
+							<td><code>? - &gt;</code></td>
+							<td>Skok, jeśli żaden z bitów maski nie jest włączony</td>
+							<td><code>? a - 11b &gt; etykieta;</code></td>
+						</tr>
+						<tr>
+							<td><code>? + &gt;</code></td>
+							<td>Skok, jeśli wszystkie bity maski są włączone</td>
+							<td><code>? a + 11b &gt; etykieta;</code></td>
+						</tr>
+						<tr>
+							<td><code>? = &gt;</code></td>
+							<td>Skok, jeśli wartości są równe.</td>
+							<td><code>? a = 0 &gt; etykieta;</code></td>
+						</tr>
+						<tr>
+							<td><code>? ! &gt;</code></td>
+							<td>Skok, jeśli wartości są różne.</td>
+							<td><code>? a ! 0 &gt; etykieta;</code></td>
+						</tr>
+						<tr>
+							<td><code>? &gt; &gt;</code>, <code>? &lt; &gt;</code>, <code>? &gt;= &gt;</code>, <code>? &lt;= &gt;</code></td>
+							<td>Skok, jeśli nierówność jest prawdziwa</td>
+							<td><code>? a &gt; 0 &gt; etykieta;</code></td>
+						</tr>
+						<tr>
+							<td colspan="3">Operacje na bitach</td>
+						</tr>
+						<tr>
+							<td><code>&amp;</code></td>
+							<td>Koniunkcja bitowa (AND)</td>
+							<td><code>a &amp; 10101010b;</code></td>
+						</tr>
+						<tr>
+							<td><code>|</code></td>
+							<td>Alternatywa bitowa (OR)</td>
+							<td><code>a | 01010101b;</code></td>
+						</tr>
+						<tr>
+							<td><code>#</code></td>
+							<td>Alternatywa wykluczająca bitowa (XOR)</td>
+							<td><code>a # 10000000b;</code></td>
+						</tr>
+						<tr>
+							<td><code>!</code></td>
+							<td>Negacja bitowa</td>
+							<td><code>a !;</code></td>
+						</tr>
+						<tr>
+							<td><code>&gt;</code></td>
+							<td>Przesunięcie bitowe w prawo ze znakiem (arytmetyczne)</td>
+							<td><code>a &gt; 1;</code></td>
+						</tr>
+						<tr>
+							<td><code>&lt;</code> &bull;</td>
+							<td>Przesunięcie bitowe w lewo</td>
+							<td><code>a &lt; 1;</code></td>
+						</tr>
+						<tr>
+							<td colspan="3">Stos i wskaźnik stosu</td>
+						</tr>
+						<tr>
+							<td><code>--&gt;</code></td>
+							<td>Położenie na stosie</td>
+							<td><code>--&gt; a;</code></td>
+						</tr>
+						<tr>
+							<td><code>&lt;--</code></td>
+							<td>Zdjęcie ze stosu</td>
+							<td><code>&lt;-- a;</code></td>
+						</tr>
+						<tr>
+							<td><code>--&gt; *</code></td>
+							<td>Odłożenie wszystkich rejestrów na stos</td>
+							<td><code>--&gt; *;</code></td>
+						</tr>
+						<tr>
+							<td><code>&lt;-- *</code></td>
+							<td>Zdjęcie wszystkich rejestrów ze stosu</td>
+							<td><code>&lt; -- *;</code></td>
+						</tr>
+						<tr>
+							<td><code>$ +</code></td>
+							<td>Inkrementacja wskaźnika stosu</td>
+							<td><code>$ +;</code></td>
+						</tr>
+						<tr>
+							<td><code>$ -;</code></td>
+							<td>Dekrementacja wskaźnika stosu</td>
+							<td><code>$ -;</code></td>
+						</tr>
+						<tr>
+							<td><code>= $</code></td>
+							<td>Pobranie wartości wskaźnika stosu</td>
+							<td><code>a = $;</code></td>
+						</tr>
+						<tr>
+							<td><code>$ =</code></td>
+							<td>Zmiana wartości wskaźnika stosu</td>
+							<td><code>$ = a;</code></td>
+						</tr>
+						<tr>
+							<td><code>= $ : </code></td>
+							<td>Skopiowanie wartości ze stosu z offsetem</td>
+							<td><code>a = $ : 0;</code></td>
+						</tr>
+						<tr>
+							<td><code>$ : =</code></td>
+							<td>Skopiowanie wartości na stos z offsetem</td>
+							<td><code>$ : 0 = a;</code></td>
+						</tr>
+						<tr>
+							<td colspan="3">Procedury</td>
+						</tr>
+						<tr>
+							<td><code>:</code></td>
+							<td>Przekazanie argumentu do procedury</td>
+							<td><code>convert: a;</code></td>
+						</tr>
+						<tr>
+							<td><code>&lt;-</code></td>
+							<td>Pobranie wyniku procedury bezargumentowej</td>
+							<td><code>a &lt;- get random;</code></td>
+						</tr>
+						<tr>
+							<td><code>&lt;- :</code></td>
+							<td>Pobranie wyniku procedury z argumentem</td>
+							<td><code>a &lt;- convert: a;</code></td>
+						</tr>
+					</table>
+
+					<p>Modyfikatory:</p>
+					<table class="table">
+						<tr>
+							<td colspan="2">Modyfikator znaku: <code>'</code></td>
+						</tr>
+						<tr>
+							<td><code>' ? ^</code></td>
+							<td>Pętla aż do osiągnięcia zera</td>
+						</tr>
+						<tr>
+							<td><code>' &lt;</code>, <code>' &gt;</code></td>
+							<td>Przesunięcie bitowe (zwykłe, niearytmetyczne)</td>
+						</tr>
+						<tr>
+							<td><code>' *</code>, <code>' /</code>, <code>' %</code>, <code>' /%</code></td>
+							<td>Mnożenie/dzielenie/reszta z dzielenia/dzielenie z resztą bez znaku</td>
+						</tr>
+						<tr>
+							<td><code>' ? &gt; &gt;</code>, <code>' ? &lt; &gt;</code>, <code>' ? &gt;= &gt;</code>, <code>' ? &lt;= &gt;</code></td>
+							<td>Skok warunkowy z porównaniem bez znaku</td>
+						</tr>
+						<tr>
+							<td colspan="2">Modyfikator zmiennego przecinka: <code>,</code></td>
+						</tr>
+						<tr>
+							<td><code>, =</code></td>
+							<td>Konwersja liczby całkowitej na zmiennoprzecinkową</td>
+						</tr>
+						<tr>
+							<td><code>, ~</code></td>
+							<td>Sinus</td>
+						</tr>
+						<tr>
+							<td><code>, ~~</code></td>
+							<td>Cosinus</td>
+						</tr>
+						<tr>
+							<td><code>, /~</code></td>
+							<td>Arcus tangens</td>
+						</tr>
+						<tr>
+							<td><code>, +-</code></td>
+							<td>Zmiana znaku liczby zmiennoprzecinkowej na przeciwny</td>
+						</tr>
+						<tr>
+							<td><code>, ||</code></td>
+							<td>Zmiana znaku liczby zmiennoprzecinkowej na dodatni (wartość bezwzględna)</td>
+						</tr>
+						<tr>
+							<td><code>, +</code>, <code>, -</code>, <code>, *</code>, <code>, /</code>, <code>, %</code>, <code>, /%</code></td>
+							<td>Działania na liczbach zmiennoprzecinkowych</td>
+						</tr>
+						<tr>
+							<td><code>, ? &gt; &gt;</code>, <code>, ? &lt; &gt;</code>, <code>, ? &gt;= &gt;</code>, <code>, ? &lt;= &gt;</code></td>
+							<td>Skok warunkowy z porównaniem liczby zmiennoprzecinkowej</td>
+						</tr>
+						<tr>
+							<td colspan="2">Modyfikator rotacji: <code>@</code></td>
+						</tr>
+						<tr>
+							<td><code>@ &lt;</code>, <code>@ &gt;</code></td>
+							<td>Rotacja bitowa</td>
+						</tr>
+					</table>
+
+					<a id="m_brackets" name="m_brackets"></a>
+					<h2>Reguła nawiasów kwadratowych i domniemane dodawanie</h2>
+					<p class="alert alert-info">Jeśli dwie nazwy stałych występują obok siebie, to przeprowadzone zostanie domniemane dodawanie.</p>
+					<p class="alert alert-info">Jeśli nawiasy kwadratowe występują obok operatora arytmetycznego lub domniemanego dodawania, to <strong>nie</strong> oznaczają dereferencji, a jedynie początek i koniec nazwy stałej.</p>
+					<p class="alert alert-info">Domniemane dodawanie zawsze występuje w połączeniu z nawiasami kwadratowymi ograniczającymi nazwę stałej.</p>
+					<p>Przykłady użycia nawiasów kwadratowych do dereferencji (<strong>nie</strong> objęte powyższą regułą):</p>
+					<pre>[display status] = engage;
+[display status] | graphics;</pre>
+					<pre>[array _ a] = 5; (a-ta komorka tablicy)</pre>
+					<p>Przykłady użycia nawiasów kwadratowych jako granic nazwy zmiennej oraz domniemanego dodawania:</p>
+					<pre>[display status] = [engage] [graphics];</pre>
+					<pre>[array [a]] = 5; (a-ta komorka tablicy)</pre>
+
+					<a id="m_junctions" name="m_junctions"></a>
+					<h2>Spojenia</h2>
+					<p>Spojenie jest odpowiednikiem wyjątków w językach wielopoziomowych. Jest zdefiniowane w bibliotece <code>/arch/base</code>.</p>
+					<p>Spojenie składa się z dwóch części: zmiennej z adresem, który ma obsłużyć spojenie, oraz wywołania spojenia w odpowiednim miejscu kodu.</p>
+					<p>Głównym zastosowaniem spojeń jest ich użycie w bibliotekach w miejscach, gdzie nie można przewidzieć jakiej reakcji biblioteki będzie oczekiwał programista. Aby użyć spojenia, programista musi najpierw przypisać do odpowiedniej zmiennej adres do skoku (poprzez nazwę etykiety) zsumowany ze stałą, która informuje o oczekiwanej reakcji na wywołanie spojenia. Biblioteka w odpowiednim miejscu wywołuje spojenie. W zależności od wartości powiązanej zmiennej program ignoruje zdarzenie, wywołuje procedurą lub wykonuje skok do danego adresu.</p>
+					<p>Spojenia korzystają z trzech predefiniowanych zmiennych:</p>
+					<table class="table">
+						<tr>
+							<th>Nazwa zmiennej</th>
+							<th>Wartość zmiennej</th>
+						</tr>
+						<tr>
+							<td><code>proceed</code></td>
+							<td><code>0</code> (wyłączone wszystkie bity)</td>
+						</tr>
+						<tr>
+							<td><code>downstream</code></td>
+							<td><code>0</code> (wyłączone wszystkie bity)</td>
+						</tr>
+						<tr>
+							<td><code>breakpoint</code></td>
+							<td><code>-1</code> (włączony tylko najstarszy bit)</td>
+						</tr>
+					</table>
+					<p>Reguły obsługi spojeń są następujące:</p>
+					<ul>
+						<li>Jeśli zmienna jest równa 0, zdarzenie jest ignorowane.</li>
+						<li>Jeśli najstarszy bit zmiennej jest równy 0, wywoływana jest procedura spod adresu w zmiennej.</li>
+						<li>Jeśli najstarszy bit zmiennej jest równy 1, wykonywany jest skok do adresu w zmiennej z wyłączonym najwyższym bitem.</li>
+					</ul>
+					<p>Wywołanie spojenia odbywa się poprzez wywołanie procedury <code>junction</code>, przekazując jej adres zmiennej jako argument:</p>
+					<pre>junction: on failure;</pre>
+
+					<a id="m_spawn" name="m_spawn"></a>
+					<h2>Dyspozycje</h2>
+					<p>Dyspozycje są zdefiniowane w bibliotece <code>/utils/spawn</code>.</p>
+					<p>Dyspozycja jest odpowiednikiem instrukcji <em>switch &hellip; case</em> z języków wysokopoziomowych. Jest zrealizowana przez użycie stosu oraz serii skoków warunkowych, które skaczą do procedur bezargumentowych.</p>
+					<p>Cele fragmentów kodu obsługujących poszczególne przypadki należy zdefiniować jako procedury:</p>
+					<pre>"case 1"
+	(kod)
+	leave;
+
+"case 2"
+	(kod)
+	leave;
+
+"case 3"
+	(kod)
+	leave;</pre>
+					<p>Dyspozycję wykonuje się poprzez wywołanie procedury <code>spawn</code>, przekazując jej adres instrukcji zaraz za ostatnim skokiem warunkowy:.</p>
+					<pre>spawn: gotowe;
+
+? a &lt; 0 &gt; case 1;
+? a &gt; 9 &gt; case 2;
+&gt; case 3;
+
+"gotowe"
+
+(dalszy kod)</pre>
+					<p>Działanie dyspozycji jest oparte o mechanizm stosu. Podczas zwykłego wywołania procedury, procesor odkłada na stos adres powrotu, po czym przechodzi do adresu procedury. Po napotkaniu instrukcji powrotu procesor wraca do adresu zdjętego ze stosu, a więc do miejsca, z którego wywołano procedurę.</p>
+					<p>Dyspozycja przechodzi do procedury skokiem, jednak wcześniej umieszcza na stosie odpowiedni adres, symulując zwykłe wywołanie jako procedury.</p>
+
+					<p class="license">
+						<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencja Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Tutorial L.in.oleum</span> jest objęty licencją <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Uznanie autorstwa-Na tych samych warunkach 4.0 Międzynarodowe</a>.
+					</p>
+
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+
+</html>

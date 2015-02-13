@@ -1,0 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+	zoom: 1;
+}
+
+html {
+	background-color: white;
+	color: black;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
+a, a:visited {
+	color: black;
+	text-decoration: underline;
+}
+
+.navbar {
+	display: none;
+}
